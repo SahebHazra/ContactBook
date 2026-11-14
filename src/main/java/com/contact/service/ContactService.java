@@ -4,7 +4,9 @@ import com.contact.model.Contact;
 import com.contact.storage.ContactStorage;
 import com.contact.util.InvalidEnteryException;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class ContactService {
 
@@ -17,9 +19,9 @@ public class ContactService {
 
     public boolean addContact(String name, long number) throws InvalidEnteryException {
         if (name == null || name.isBlank())
-            throw new InvalidEnteryException("Invalid Entery For Name");
+            throw new InvalidEnteryException("Invalid Entery For Name : "+name);
         if (number <= 1000_000_000)
-            throw new InvalidEnteryException("Invalid Entery For Number");
+            throw new InvalidEnteryException("Invalid Entery For Number : " +number);
         if (contactEntery.containsKey(number)) {
             System.out.println("The number alredy exist");
             System.out.println("With name : " + contactEntery.get(number).getName());
@@ -30,6 +32,10 @@ public class ContactService {
             return true;
         }
         return false;
+    }
+
+    public Collection<Contact> getAllContacts() {
+        return contactEntery.values();
     }
 
 }

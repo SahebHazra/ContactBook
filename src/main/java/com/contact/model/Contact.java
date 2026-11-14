@@ -13,13 +13,13 @@ public class Contact {
 
     public void setName(String name) throws InvalidEnteryException {
         if (name == null || name.isBlank())
-            throw new InvalidEnteryException("Invalid Entery For Name");
+            throw new InvalidEnteryException("Invalid Entery For Name : "+name);
         this.name = name;
     }
 
     public void setNumber(long number) throws InvalidEnteryException {
         if (number <= 1000_000_000)
-            throw new InvalidEnteryException("Invalid Entery For Number");
+            throw new InvalidEnteryException("Invalid Entery For Number : "+number);
         this.number = number;
     }
 
