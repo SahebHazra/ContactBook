@@ -70,8 +70,23 @@ public class ContactService {
                 contactEntery.remove(OGNumber);
                 // need to save and update
 
-                 return true;
+                return true;
             }
+        }
+        return false;
+    }
+
+    public boolean deleteContact(String name) {
+        searchFor(name);
+        System.out.println("Try to Delete the Contact by it's Respective Number");
+        return false;
+    }
+
+    public boolean deleteContact(long number) {
+        if (contactEntery.containsKey(number)) {
+            contactEntery.remove(number);
+            // need to update the records
+            return true;
         }
         return false;
     }

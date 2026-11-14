@@ -18,7 +18,7 @@ public class App {
         System.out.println("3. Search contact by name.");
         System.out.println("4. Update contact details.");
         System.out.println("5. Delete a contact.");
-        System.out.println("6. Save contacts in a text file.");
+        System.out.println("6. Save contacts in a text file. - TODO");
         System.out.println("7. Exit.");
     }
 
@@ -36,6 +36,8 @@ public class App {
                 Long number = Long.parseLong(takeInput("Enter Number : "));
                 if (service.addContact(name, number))
                     System.out.println("Added : " + name);
+                else
+                    System.out.println("Fail to Add");
             }
 
             case 2 -> {
@@ -87,6 +89,29 @@ public class App {
                     System.out.println("Not a Valid Type");
             }
 
+            case 5 -> {
+                System.out.println("1. Delete Contact of Name");
+                System.out.println("2: Delete Contact of Number ");
+                String type = takeInput("TYPE : ");
+
+                if (type.equals("1")) {
+                    String name = takeInput("Enter Name : ");
+                    if (service.deleteContact(name))
+                        System.out.println("Deleted Sucessfully");
+                    else
+                        System.out.println("Failed to Delete!");
+
+                } else if (type.equals("2")) {
+                    Long number = Long.parseLong(takeInput("Enter Number : "));
+                    if (service.deleteContact(number))
+                        System.out.println("Deleted Sucessfully");
+                    else
+                        System.out.println("Failed to Delete!");
+
+                } else
+                    System.out.println("Not a Valid Type");
+
+            }
             case 7 -> {
                 System.out.println("Good Bye!");
                 isEnd = true;
