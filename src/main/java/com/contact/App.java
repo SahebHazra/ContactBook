@@ -18,8 +18,38 @@ public class App {
         System.out.println("3. Search contact by name.");
         System.out.println("4. Update contact details.");
         System.out.println("5. Delete a contact.");
-        System.out.println("6. Save contacts in a text file. - TODO");
+        System.out.println("6. Save contacts in a text file.");
         System.out.println("7. Exit.");
+    }
+
+    public static void main(String args[]) {
+
+        ContactService service = null;
+
+        try {
+            ContactStorage storage = new ContactStorage();
+            service = new ContactService(storage);
+        } catch (Exception e) {
+            System.out.println("Fail to load Some Data");
+        }
+
+        if (service == null)
+            return;
+
+        while (!isEnd) {
+            menu();
+            System.out.print("\nChoose : ");
+            try {
+                int option = Integer.parseInt(sc.nextLine());
+                runMenu(option, service);
+            } catch (NumberFormatException | InvalidEnteryException e) {
+                System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+            System.out.println();
+        }
+
     }
 
     public static String takeInput(String message) {
@@ -29,7 +59,7 @@ public class App {
     }
 
     public static void runMenu(int option, ContactService service)
-            throws InvalidEnteryException, NumberFormatException {
+            throws InvalidEnteryException, NumberFormatException, IOException {
         switch (option) {
             case 1 -> {
                 String name = takeInput("Enter Name : ");
@@ -112,39 +142,16 @@ public class App {
                     System.out.println("Not a Valid Type");
 
             }
+
+            case 6 -> service.saveInTextFile();
+
             case 7 -> {
+                service.saveInTextFile();
                 System.out.println("Good Bye!");
                 isEnd = true;
             }
+
             default -> System.out.println("Pleace Enter between [1-7] ");
         }
-    }
-
-    public static void main(String args[]) {
-
-        ContactService service = null;
-
-        try {
-            ContactStorage storage = new ContactStorage();
-            service = new ContactService(storage);
-        } catch (Exception e) {
-            System.out.println("Fail to load Some Data");
-        }
-
-        if (service == null)
-            return;
-
-        while (!isEnd) {
-            menu();
-            System.out.print("\nChoose : ");
-            try {
-                int option = Integer.parseInt(sc.nextLine());
-                runMenu(option, service);
-            } catch (NumberFormatException | InvalidEnteryException e) {
-                System.out.println(e);
-            }
-            System.out.println();
-        }
-
     }
 }

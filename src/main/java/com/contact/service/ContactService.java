@@ -4,14 +4,17 @@ import com.contact.model.Contact;
 import com.contact.storage.ContactStorage;
 import com.contact.util.InvalidEnteryException;
 
-import java.util.Collection;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ContactService {
-
+    private ContactStorage storage;
     private static HashMap<Long, Contact> contactEntery;
 
     public ContactService(ContactStorage storage) {
+        this.storage = storage;
         // need old records
         contactEntery = new HashMap<>();
     }
@@ -33,8 +36,8 @@ public class ContactService {
         return false;
     }
 
-    public Collection<Contact> getAllContacts() {
-        return contactEntery.values();
+    public List<Contact> getAllContacts() {
+        return new ArrayList<>(contactEntery.values());
     }
 
     public void searchFor(String name) {
@@ -89,5 +92,10 @@ public class ContactService {
             return true;
         }
         return false;
+    }
+
+    public void saveInTextFile() throws IOException {
+        if (storage.saveInTextFile(getAllContacts()))
+            System.out.println("Contacts are Saved In a Local Text_Eile");
     }
 }
