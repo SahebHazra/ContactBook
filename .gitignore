@@ -1,0 +1,8 @@
+.mvn
+target/*
+*.class
+*/*.class
+src/test/*
+.vscode/*
+*.md
+
