@@ -5,4 +5,5 @@ target/*
 src/test/*
 .vscode/*
 *.md
+LocalContacts.txt
 
