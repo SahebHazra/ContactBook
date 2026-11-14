@@ -30,4 +30,9 @@ public class Contact {
     public long getNumber() {
         return number;
     }
+
+    @Override 
+    public String toString() {
+        return name+" : "+number;
+    }
 }

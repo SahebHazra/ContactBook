@@ -1,6 +1,5 @@
 package com.contact;
 
-import com.contact.model.Contact;
 import com.contact.service.ContactService;
 import com.contact.storage.ContactStorage;
 import com.contact.util.InvalidEnteryException;
@@ -40,9 +39,12 @@ public class App {
             }
 
             case 2 -> {
-                System.out.println("Avilable Contacts are -> ");
-                for (Contact contact : service.getAllContacts()) {
-                    System.out.println(contact.getName() + " : " + contact.getNumber());
+                var contacts = service.getAllContacts();
+                if (contacts.isEmpty()) {
+                    System.out.println("No contacts available.");
+                } else {
+                    System.out.println("Avilable Contacts are -> ");
+                    contacts.forEach(System.out::println);
                 }
             }
             case 7 -> {
