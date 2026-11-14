@@ -18,9 +18,9 @@ public class ContactService {
 
     public boolean addContact(String name, long number) throws InvalidEnteryException {
         if (name == null || name.isBlank())
-            throw new InvalidEnteryException("Invalid Entery For Name : "+name);
+            throw new InvalidEnteryException("Invalid Entery For Name : " + name);
         if (number <= 1000_000_000)
-            throw new InvalidEnteryException("Invalid Entery For Number : " +number);
+            throw new InvalidEnteryException("Invalid Entery For Number : " + number);
         if (contactEntery.containsKey(number)) {
             System.out.println("The number alredy exist");
             System.out.println("With name : " + contactEntery.get(number).getName());
@@ -37,4 +37,42 @@ public class ContactService {
         return contactEntery.values();
     }
 
+    public void searchFor(String name) {
+        System.out.println("Matched Enterys are");
+
+        contactEntery.values().stream().filter(n -> n.getName().toLowerCase()
+                .contains(name.toLowerCase())).forEach(System.out::println);
+    }
+
+    public void searchFor(long number) {
+        if (contactEntery.containsKey(number))
+            System.out.println("Found -> " + contactEntery.get(number));
+        else
+            System.out.println("The number wasn't saved yet");
+    }
+
+    public boolean updateName(String name, long number) throws InvalidEnteryException {
+        if (contactEntery.containsKey(number)) {
+            contactEntery.get(number).setName(name);
+            // need to save and update
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateNumber(long OGNumber, long newNumber) throws InvalidEnteryException {
+        if (contactEntery.containsKey(OGNumber)) {
+            String name = contactEntery.get(OGNumber).getName();
+            contactEntery.put(newNumber, new Contact(name, newNumber));
+
+            if (contactEntery.containsKey(newNumber)) {
+                contactEntery.remove(OGNumber);
+                // need to save and update
+
+                 return true;
+            }
+        }
+        return false;
+    }
 }

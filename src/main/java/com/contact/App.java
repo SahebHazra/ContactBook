@@ -47,6 +47,46 @@ public class App {
                     contacts.forEach(System.out::println);
                 }
             }
+
+            case 3 -> {
+                System.out.println("1. Search by Name");
+                System.out.println("2: Search by Number ");
+                String type = takeInput("TYPE : ");
+
+                if (type.equals("1")) {
+                    String name = takeInput("Enter Name : ");
+                    service.searchFor(name);
+                } else if (type.equals("2")) {
+                    Long number = Long.parseLong(takeInput("Enter Number : "));
+                    service.searchFor(number);
+                } else
+                    System.out.println("Not a Valid Type");
+            }
+
+            case 4 -> {
+                System.out.println("1. Update the Name");
+                System.out.println("2: Update the Number ");
+                String type = takeInput("TYPE : ");
+
+                Long OGNumber = Long.parseLong(takeInput("Enter originalNumber : "));
+                if (type.equals("1")) {
+                    String name = takeInput("Enter newName : ");
+                    if (service.updateName(name, OGNumber))
+                        System.out.println("Updated Sucessfully");
+                    else
+                        System.out.println("Failed to Update!");
+
+                } else if (type.equals("2")) {
+                    Long newNumber = Long.parseLong(takeInput("Enter newNumber : "));
+                    if (service.updateNumber(OGNumber, newNumber))
+                        System.out.println("Updated Sucessfully");
+                    else
+                        System.out.println("Failed to Update!");
+
+                } else
+                    System.out.println("Not a Valid Type");
+            }
+
             case 7 -> {
                 System.out.println("Good Bye!");
                 isEnd = true;
