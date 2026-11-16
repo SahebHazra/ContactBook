@@ -5,6 +5,7 @@ import com.contact.storage.ContactStorage;
 import com.contact.util.InvalidEnteryException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class App {
@@ -29,8 +30,10 @@ public class App {
         try {
             ContactStorage storage = new ContactStorage();
             service = new ContactService(storage);
-        } catch (Exception e) {
-            System.out.println("Fail to load Some Data");
+            storage.loadDriver();
+            System.out.println("hi");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
         }
 
         if (service == null)
